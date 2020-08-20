@@ -23,9 +23,9 @@ public class StartContainer {
 		System.out.println(p1.getProd_no());
 		System.out.println(p1.getProd_name());
 		System.out.println(p1.getProd_price());
-//		
-//		OrderLine line = ctx.getBean("line", com.my.vo.OrderLine.class);
-//		System.out.println(line);
+		
+		OrderLine line = ctx.getBean("line", com.my.vo.OrderLine.class);
+		System.out.println(line);
 //		
 //		OrderInfo info = ctx.getBean("info", com.my.vo.OrderInfo.class);
 //		System.out.println(info);
