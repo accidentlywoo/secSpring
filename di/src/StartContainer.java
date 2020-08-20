@@ -1,5 +1,6 @@
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.my.vo.OrderLine;
 import com.my.vo.Product;
 
 public class StartContainer {
@@ -13,5 +14,8 @@ public class StartContainer {
 		System.out.println(p1.getProd_no());
 		System.out.println(p1.getProd_name());
 		System.out.println(p1.getProd_price());
+		
+		OrderLine line = ctx.getBean("line", com.my.vo.OrderLine.class);
+		System.out.println(line);
 	}
 }

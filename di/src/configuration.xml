@@ -12,4 +12,9 @@
 		<constructor-arg index="2" value="1000"></constructor-arg>
 	</bean>
 
+	<bean id="line" class="com.my.vo.OrderLine">
+		<property name="order_no" value="1"></property>
+		<property name="order_p" ref="p"></property>
+		<property name="order_quantity" value="hello"></property>
+	</bean>
 </beans>
