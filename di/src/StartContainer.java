@@ -27,8 +27,8 @@ public class StartContainer {
 		OrderLine line = ctx.getBean("line", com.my.vo.OrderLine.class);
 		System.out.println(line);
 //		
-//		OrderInfo info = ctx.getBean("info", com.my.vo.OrderInfo.class);
-//		System.out.println(info);
+		OrderInfo info = ctx.getBean("info", com.my.vo.OrderInfo.class);
+		System.out.println(info);
 //		
 //		MapVO maptest = ctx.getBean("mapvo", MapVO.class);
 //		System.out.println("maptest : "+maptest);
