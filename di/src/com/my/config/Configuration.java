@@ -8,6 +8,9 @@ import com.my.vo.Product;
 public class Configuration {
 	@Bean(name = "product")
 	public Product getProduct() {
-		return new Product();
+//		Product p = new Product();
+//		p.setProd_no("C0001");
+//		return p;// Setter Injection
+		return new Product("C0001", "¾Æ¸Þ", 1000); // Constructor Injection
 	};
 }
