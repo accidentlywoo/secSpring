@@ -17,6 +17,11 @@
 		<property name="order_p" ref="p"></property>
 		<property name="order_quantity" value="5"></property>
 	</bean>
+	<bean id="line2" class="com.my.vo.OrderLine">
+		<property name="order_no" value="1"></property>
+		<property name="order_p" ref="p"></property>
+		<property name="order_quantity" value="2"></property>
+	</bean>
 	
 	<bean id="c" class="com.my.vo.Customer">
 		<property name="id" value="id1"></property>
@@ -30,6 +35,12 @@
 		<!--<property name="order_dt" value=""></property> Date 타입 빈문자열 세팅 불가 -->
 		<property name="order_dt">
 			<null/>
+		</property>
+		<property name="lines">
+			<list>
+				<ref bean="line"/>
+				<ref bean="line2"/>
+			</list>
 		</property>
 	</bean>
 </beans>
