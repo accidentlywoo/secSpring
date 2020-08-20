@@ -43,4 +43,22 @@
 			</list>
 		</property>
 	</bean>
+	<bean id="mapvo" class="com.my.vo.MapVO">
+		<property name="map">
+			<map>
+				<entry key="one" value="1" />
+				<entry key="two" value="2" />
+				<entry key="three" value="3" />
+			</map>
+		</property>
+	</bean>
+	<bean id="propertiesvo" class="com.my.vo.PropertiesVO">
+		<constructor-arg>
+			<props>
+				<prop key="controller">controller.properties</prop>
+				<prop key="dao">dao.properties</prop>
+				<prop key="msg">msg.properties</prop>
+			</props>
+		</constructor-arg>
+	</bean>
 </beans>
