@@ -1,5 +1,8 @@
 package com.my.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component(value = "product")
 public class Product {
 	private String prod_no;
 	private String prod_name;
