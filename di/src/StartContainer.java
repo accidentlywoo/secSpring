@@ -11,5 +11,7 @@ public class StartContainer {
 		Product p2 = ctx.getBean("p", com.my.vo.Product.class); // 스프링 컨테이너에 의해 관리되는 Bean은 싱들톤으로 관리된다.
 		System.out.println(p1 == p2);
 		System.out.println(p1.getProd_no());
+		System.out.println(p1.getProd_name());
+		System.out.println(p1.getProd_price());
 	}
 }

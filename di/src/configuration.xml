@@ -6,6 +6,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	<bean id="p" class="com.my.vo.Product">
 		<!-- <property name="prod_no" value="C0001"></property> --><!-- Setter Injection -->
+		<!-- constructor injection -->
 		<constructor-arg index="0" value="C0001"></constructor-arg>
 		<constructor-arg index="1" value="테스트"></constructor-arg>
 		<constructor-arg index="2" value="1000"></constructor-arg>
