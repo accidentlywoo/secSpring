@@ -7,12 +7,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Repository;
+
 import com.my.exception.AddException;
 import com.my.exception.DuplicatedException;
 import com.my.exception.FindException;
 import com.my.sql.MyConnection;
 import com.my.vo.Product;
 
+@Repository(value = "productDAO")
 public class ProductDAO {
 	public void insert(Product product) throws AddException, DuplicatedException{}
 	public Product selectByNo(String no) throws FindException{
@@ -84,8 +89,8 @@ public class ProductDAO {
 				list.add(product);
 			}
 			if(list.size() == 0)
-				throw new FindException("�긽�뭹�씠 �뾾�뒿�땲�떎.");
-			//return list; //return 吏곸쟾�뿉 finally 援щЦ �닔�뻾
+				throw new FindException("占쎄맒占쎈�뱄옙�뵠 占쎈씨占쎈뮸占쎈빍占쎈뼄.");
+			//return list; //return 筌욊낯�읈占쎈퓠 finally �뤃�됎� 占쎈땾占쎈뻬
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

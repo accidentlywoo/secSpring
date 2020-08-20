@@ -6,24 +6,33 @@ import java.util.Properties;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.my.dao.ProductDAO;
+import com.my.exception.FindException;
+import com.my.service.ProductService;
 import com.my.vo.MapVO;
 import com.my.vo.OrderInfo;
 import com.my.vo.OrderLine;
 import com.my.vo.Product;
 
 public class StartContainer {
-	public static void main(String[] args) throws FileNotFoundException, IOException {
-		// ½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê¸¦ ±¸µ¿
+	public static void main(String[] args) throws FileNotFoundException, IOException, FindException {
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("configuration.xml");
 //		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(com.my.config.Configuration.class);
-		Product p1 = ctx.getBean("product", com.my.vo.Product.class); // 2¹øÂ° ÀÎÀÚ·Î Down Casting °¡´É¿©ºÎ¸¦ È®ÀÎÇÒ ¼ö ÀÖ´Ù.
+		Product p1 = ctx.getBean("product", com.my.vo.Product.class); // 2ï¿½ï¿½Â° ï¿½ï¿½ï¿½Ú·ï¿½ Down Casting ï¿½ï¿½ï¿½É¿ï¿½ï¿½Î¸ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 //		ctx.getBean("p", com.my.vo.Customer.class);
-		Product p2 = ctx.getBean("product", com.my.vo.Product.class); // ½ºÇÁ¸µ ÄÁÅ×ÀÌ³Ê¿¡ ÀÇÇØ °ü¸®µÇ´Â BeanÀº ½ÌµéÅæÀ¸·Î °ü¸®µÈ´Ù.
+		Product p2 = ctx.getBean("product", com.my.vo.Product.class); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ Beanï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½.
 		System.out.println(p1 == p2);
 		System.out.println(p1.getProd_no());
 		System.out.println(p1.getProd_name());
 		System.out.println(p1.getProd_price());
 		
+		ProductDAO productDAO = ctx.getBean("productDAO", com.my.dao.ProductDAO.class);
+//		productDAO.selectAll();
+		System.out.println("========");
+		
+		ProductService productService = ctx.getBean("productService", com.my.service.ProductService.class);
+		productService.findAll();
 //		OrderLine line = ctx.getBean("line", com.my.vo.OrderLine.class);
 //		System.out.println(line);
 ////		
