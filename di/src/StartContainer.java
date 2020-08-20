@@ -30,16 +30,16 @@ public class StartContainer {
 		OrderInfo info = ctx.getBean("info", com.my.vo.OrderInfo.class);
 		System.out.println(info);
 //		
-//		MapVO maptest = ctx.getBean("mapvo", MapVO.class);
-//		System.out.println("maptest : "+maptest);
-//		
-//		com.my.vo.PropertiesVO proVo = ctx.getBean("propertiesvo", com.my.vo.PropertiesVO.class);
-//		System.out.println("proVo : " + proVo.getEnv());
-//		
-//		Properties env = proVo.getEnv();
-//		String fileName = env.getProperty("msg");
-//		Properties envMsg = new Properties();
-//		envMsg.load(new FileInputStream(fileName));
-//		System.out.println(envMsg.getProperty("greeting"));
+		MapVO maptest = ctx.getBean("mapvo", MapVO.class);
+		System.out.println("maptest : "+maptest);
+		
+		com.my.vo.PropertiesVO proVo = ctx.getBean("propertiesvo", com.my.vo.PropertiesVO.class);
+		System.out.println("proVo : " + proVo.getEnv());
+		
+		Properties env = proVo.getEnv();
+		String fileName = env.getProperty("msg");
+		Properties envMsg = new Properties();
+		envMsg.load(new FileInputStream(fileName));
+		System.out.println(envMsg.getProperty("greeting"));
 	}
 }

@@ -77,6 +77,8 @@ public class Configuration {
 	public PropertiesVO getPropertiesvo() {
 		Properties properties = new Properties();
 		properties.put("controller", "controller.properties");
+		properties.put("dao", "dao.properties");
+		properties.put("msg", "msg.properties");
 		PropertiesVO result = new PropertiesVO(properties);
 		return result;
 	}
