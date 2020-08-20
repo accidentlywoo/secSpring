@@ -15,6 +15,21 @@
 	<bean id="line" class="com.my.vo.OrderLine">
 		<property name="order_no" value="1"></property>
 		<property name="order_p" ref="p"></property>
-		<property name="order_quantity" value="hello"></property>
+		<property name="order_quantity" value="5"></property>
+	</bean>
+	
+	<bean id="c" class="com.my.vo.Customer">
+		<property name="id" value="id1"></property>
+		<property name="pwd" value="p1"></property>
+		<property name="name" value="홍길동"></property>
+		<property name="addr" value=""></property>
+	</bean>
+	
+	<bean id="info" class="com.my.vo.OrderInfo">
+		<constructor-arg name="order_c" ref="c"></constructor-arg>
+		<!--<property name="order_dt" value=""></property> Date 타입 빈문자열 세팅 불가 -->
+		<property name="order_dt">
+			<null/>
+		</property>
 	</bean>
 </beans>
