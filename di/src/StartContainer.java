@@ -36,6 +36,7 @@ public class StartContainer {
 		System.out.println(productService.findAll());
 		
 		CustomerService customerService = ctx.getBean("customerService", com.my.service.CustomerService.class);
+		// 소문자로 시작해야함, Class 이름과 똑같은 대문자 시작으로 작성하면 Error 발생
 		customerService.login("id1", "p1");
 //		OrderLine line = ctx.getBean("line", com.my.vo.OrderLine.class);
 //		System.out.println(line);
