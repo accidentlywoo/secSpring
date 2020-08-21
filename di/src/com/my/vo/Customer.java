@@ -1,5 +1,8 @@
 package com.my.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Customer extends Person{
 	private static final long serialVersionUID = 1L;
 	private String id;

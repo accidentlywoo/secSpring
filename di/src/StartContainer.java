@@ -10,6 +10,7 @@ import com.my.dao.ProductDAO;
 import com.my.exception.FindException;
 import com.my.service.CustomerService;
 import com.my.service.ProductService;
+import com.my.vo.Customer;
 import com.my.vo.MapVO;
 import com.my.vo.OrderInfo;
 import com.my.vo.OrderLine;
@@ -38,6 +39,10 @@ public class StartContainer {
 		CustomerService customerService = ctx.getBean("customerService", com.my.service.CustomerService.class);
 		// 소문자로 시작해야함, Class 이름과 똑같은 대문자 시작으로 작성하면 Error 발생
 		customerService.login("id1", "p1");
+		
+		Customer c = ctx.getBean("c", com.my.vo.Customer.class);
+		Customer customer = ctx.getBean("customer", com.my.vo.Customer.class);
+		System.out.println(c == customer);
 //		OrderLine line = ctx.getBean("line", com.my.vo.OrderLine.class);
 //		System.out.println(line);
 ////		

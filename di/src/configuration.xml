@@ -23,7 +23,7 @@
 		<property name="order_quantity" value="2"></property>
 	</bean>
 	
-	<bean id="c" class="com.my.vo.Customer">
+	<bean id="c" class="com.my.vo.Customer"><!-- Spring Bean은 설정된 id, name값을 기준으로 관리된다. -->
 		<property name="id" value="id1"></property>
 		<property name="pwd" value="p1"></property>
 		<property name="name" value="홍길동"></property>
