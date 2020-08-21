@@ -5,6 +5,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.my.exception.AddException;
@@ -15,6 +16,7 @@ import com.my.exception.RemoveException;
 import com.my.vo.Customer;
 
 @Repository
+@Qualifier(value = "customerDAOMySQL")
 public class CustomerDAOMySQL implements CustomerDAO{
 	@Autowired
 	private DataSource ds;

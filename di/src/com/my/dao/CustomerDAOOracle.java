@@ -10,6 +10,8 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.my.exception.AddException;
@@ -21,6 +23,8 @@ import com.my.vo.Customer;
 import com.my.vo.Postal;
 
 @Repository
+@Qualifier(value = "customerDAOOracle")
+@Primary
 public class CustomerDAOOracle implements CustomerDAO{
 	@Autowired
 	private DataSource ds;

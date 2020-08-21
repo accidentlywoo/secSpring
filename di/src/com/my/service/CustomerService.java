@@ -3,6 +3,7 @@ package com.my.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.my.dao.CustomerDAO;
@@ -15,6 +16,7 @@ import com.my.vo.Customer;
 @Service
 public class CustomerService {
 	@Autowired
+	@Qualifier(value = "customerDAOOracle")
 	private CustomerDAO customerDAO;
 	
 	public CustomerService(CustomerDAO customerDAO) {
