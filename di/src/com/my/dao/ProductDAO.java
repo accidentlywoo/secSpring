@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.my.exception.AddException;
@@ -19,6 +21,8 @@ import com.my.vo.Product;
 
 @Repository(value = "productDAO")
 public class ProductDAO {
+	@Autowired
+	private DataSource ds;
 	public void insert(Product product) throws AddException, DuplicatedException{}
 	public Product selectByNo(String no) throws FindException{
 		Connection connection = null;
@@ -26,9 +30,9 @@ public class ProductDAO {
 		ResultSet result = null;
 		
 		try {
-			connection = MyConnection.getConnection();
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			connection = ds.getConnection();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
 		
 		String selectByProdNo = 

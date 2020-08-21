@@ -28,11 +28,12 @@ public class StartContainer {
 		System.out.println(p1.getProd_price());
 		
 		ProductDAO productDAO = ctx.getBean("productDAO", com.my.dao.ProductDAO.class);
-//		productDAO.selectAll();
-		System.out.println("========");
+		
+		System.out.println(productDAO.selectAll());
 		
 		ProductService productService = ctx.getBean("productService", com.my.service.ProductService.class);
 		productService.findAll();
+		
 //		OrderLine line = ctx.getBean("line", com.my.vo.OrderLine.class);
 //		System.out.println(line);
 ////		
