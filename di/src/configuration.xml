@@ -61,9 +61,17 @@
 			</props>
 		</constructor-arg>
 	</bean>
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+	<bean id="oracleDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource" primary="true">
+		<qualifier value="myOracle"></qualifier>
 		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver"></property>
 		<property name="url" value="jdbc:oracle:thin:@192.168.0.114:1521:xe"></property>
+		<property name="username" value="test"></property>
+		<property name="password" value="test"></property>
+	</bean>
+	<bean id="oracleDataSource2" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<qualifier value="tutorOracle"></qualifier>
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@192.168.0.119:1521:xe"></property>
 		<property name="username" value="test"></property>
 		<property name="password" value="test"></property>
 	</bean>

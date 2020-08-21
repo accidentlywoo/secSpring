@@ -27,6 +27,7 @@ import com.my.vo.Postal;
 @Primary
 public class CustomerDAOOracle implements CustomerDAO{
 	@Autowired
+	@Qualifier(value = "myOracle")
 	private DataSource ds;
 	@Override
 	public void insert(Customer customer) throws AddException, DuplicatedException, FindException {

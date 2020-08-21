@@ -31,7 +31,7 @@ public class StartContainer {
 		
 		ProductDAO productDAO = ctx.getBean("productDAO", com.my.dao.ProductDAO.class);
 		
-		System.out.println(productDAO.selectAll());
+		System.out.println("tutor "+ productDAO.selectAll());
 		
 		ProductService productService = ctx.getBean("productService", com.my.service.ProductService.class);
 		System.out.println(productService.findAll());

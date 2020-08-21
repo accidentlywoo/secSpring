@@ -10,6 +10,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.my.exception.AddException;
@@ -20,6 +21,7 @@ import com.my.vo.Product;
 @Repository(value = "productDAO")
 public class ProductDAO {
 	@Autowired
+	@Qualifier(value = "tutorOracle")
 	private DataSource ds;
 	public void insert(Product product) throws AddException, DuplicatedException{}
 	public Product selectByNo(String no) throws FindException{
