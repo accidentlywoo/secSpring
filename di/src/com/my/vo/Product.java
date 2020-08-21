@@ -1,8 +1,10 @@
 package com.my.vo;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component(value = "product")
+@Scope(value = "prototype")
 public class Product {
 	private String prod_no;
 	private String prod_name;

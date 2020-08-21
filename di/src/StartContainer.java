@@ -24,7 +24,7 @@ public class StartContainer {
 		Product p1 = ctx.getBean("product", com.my.vo.Product.class); // 2��° ���ڷ� Down Casting ���ɿ��θ� Ȯ���� �� �ִ�.
 //		ctx.getBean("p", com.my.vo.Customer.class);
 		Product p2 = ctx.getBean("product", com.my.vo.Product.class); // ������ �����̳ʿ� ���� �����Ǵ� Bean�� �̵������� �����ȴ�.
-		System.out.println(p1 == p2);
+		System.out.println("prototype scope test : "+(p1 == p2));
 		System.out.println(p1.getProd_no());
 		System.out.println(p1.getProd_name());
 		System.out.println(p1.getProd_price());
