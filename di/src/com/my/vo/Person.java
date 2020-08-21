@@ -2,9 +2,12 @@ package com.my.vo;
 
 import java.io.Serializable;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class Person implements Serializable{
 	private static final long serialVersionUID = 1L;
 	//private String name;
+	@Autowired(required = false)
 	private Postal postal;// 도로명 우편번호 정보
 	protected String name;
 	private String addr;
