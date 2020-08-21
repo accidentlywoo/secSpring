@@ -7,19 +7,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.my.exception.AddException;
 import com.my.exception.FindException;
-import com.my.sql.MyConnection;
 import com.my.vo.Customer;
 import com.my.vo.OrderInfo;
 import com.my.vo.OrderLine;
 import com.my.vo.Product;
 
+@Repository
 public class OrderDAO {
+	@Autowired
+	private DataSource ds;
 	public void insert(OrderInfo info) throws AddException{ //Transaction
 		Connection con = null;
 		try {
-			con = MyConnection.getConnection();
+			con = ds.getConnection();
 			con.setAutoCommit(false); // Default true -> 자동커밋 해재
 			insertInfo(con, info);
 			insertLines(con, info.getLines());
@@ -34,10 +41,7 @@ public class OrderDAO {
 				}
 			}
 			throw new AddException(e.getMessage());
-		}finally {
-			MyConnection.close(con);
 		}
-		
 	}
 	private void insertInfo(Connection connection, OrderInfo info) throws AddException{
 		//주문기본정보 추가
@@ -52,9 +56,6 @@ public class OrderDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new AddException();
-		}finally {
-			//MyConnection.close(connection); -> insertLines에서도 connection을 사용해야 하기 때문에 커넥션을 close하면 안된다.
-			MyConnection.close(pstmt, null);
 		}
 	}
 	private void insertLines(Connection connection, List<OrderLine> lines) throws AddException{
@@ -78,9 +79,6 @@ public class OrderDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new AddException(e.getMessage());
-		}finally {
-			//MyConnection.close(connection); -> insertLines에서도 connection을 사용해야 하기 때문에 커넥션을 close하면 안된다.
-			MyConnection.close(pstmt, null);
 		}
 	}
 	public List<OrderInfo> selectById(String id) throws FindException{
@@ -89,8 +87,8 @@ public class OrderDAO {
 		ResultSet rs = null;
 		List<OrderInfo> infos = new ArrayList<OrderInfo>();
 		try {
-			connection = MyConnection.getConnection();
-		} catch (ClassNotFoundException | SQLException e) {
+			connection = ds.getConnection();
+		} catch ( SQLException e) {
 			e.printStackTrace();
 		}
 		String selectByIdSQL = 

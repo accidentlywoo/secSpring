@@ -9,40 +9,35 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.my.exception.AddException;
 import com.my.exception.FindException;
-import com.my.sql.MyConnection;
 import com.my.vo.Board;
 
+@Repository
 public class BoardDAO {
+	@Autowired
+	private DataSource ds;
 //	public static final int CNT_PER_PAGE = 3;
 	public void insert(Board board) throws AddException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String insertSql = null;
 		try {
-
-//			if(board.getParent_no() == 0) {
-//				// 글쓰기
-//				insertSql = "INSERT INTO board "
-//						+ "VALUES(board_seq.NEXTVAL, 0,?,?,SYSTIMESTAMP,?)";
-//			}else {
-//				//댓글 쓰기
-//				insertSql = "INSERT INTO board "
-//						+ "VALUES(board_seq.NEXTVAL, ?,?,?,SYSTIMESTAMP,?)";
-//			}
 			insertSql = "INSERT INTO board " + "VALUES(board_seq.NEXTVAL, ?,?,?,SYSTIMESTAMP,?)";
-			con = MyConnection.getConnection();
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(insertSql);
 			pstmt.setLong(1, board.getParent_no());
 			pstmt.setString(2, board.getBoard_title());
 			pstmt.setString(3, board.getBoard_writer());
 			pstmt.setString(4, board.getBoard_content());
 			pstmt.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch ( SQLException e) {
 			throw new AddException(e.getMessage());
-		} finally {
-			MyConnection.close(pstmt, con);
 		}
 	}
 
@@ -60,7 +55,7 @@ public class BoardDAO {
 					+ "                START WITH parent_no = 0\r\n"
 					+ "                CONNECT BY PRIOR board_no = parent_no\r\n"
 					+ "                ORDER SIBLINGS BY a.board_no DESC) b\r\n" + "WHERE list BETWEEN ? AND ?";
-			con = MyConnection.getConnection();
+			con = ds.getConnection();
 			pstm = con.prepareStatement(pageSql);
 			// page가 1이면 startrow 1 endRow 3
 //			int startRow = (page -1)* CNT_PER_PAGE +1;
@@ -84,11 +79,9 @@ public class BoardDAO {
 				throw new FindException("결과가 없음");
 			}
 			return list;
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch ( SQLException e) {
 			e.printStackTrace();
 			throw new FindException();
-		}finally {
-			MyConnection.close(resultSet, pstm, con);
 		}
 	}
 	public int selectCount() throws FindException{
@@ -97,7 +90,7 @@ public class BoardDAO {
 		ResultSet resultSet = null;
 		try {
 			String pageSql = "select count(*) cnt from board";
-			con = MyConnection.getConnection();
+			con = ds.getConnection();
 			pstm = con.prepareStatement(pageSql);
 			resultSet = pstm.executeQuery();
 			if(!resultSet.next()) {
@@ -107,8 +100,6 @@ public class BoardDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new FindException("error");
-		}finally {
-			MyConnection.close(resultSet, pstm, con);
 		}
 	}
 
@@ -118,7 +109,7 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			conn = MyConnection.getConnection();
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, board_no);
 			rs = pstmt.executeQuery();
@@ -136,8 +127,6 @@ public class BoardDAO {
 			}
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
-		}finally {
-			MyConnection.close(rs, pstmt, conn);
 		}
 	}
 }

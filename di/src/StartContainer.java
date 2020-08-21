@@ -8,6 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.my.dao.ProductDAO;
 import com.my.exception.FindException;
+import com.my.service.CustomerService;
 import com.my.service.ProductService;
 import com.my.vo.MapVO;
 import com.my.vo.OrderInfo;
@@ -32,8 +33,10 @@ public class StartContainer {
 		System.out.println(productDAO.selectAll());
 		
 		ProductService productService = ctx.getBean("productService", com.my.service.ProductService.class);
-		productService.findAll();
+		System.out.println(productService.findAll());
 		
+		CustomerService customerService = ctx.getBean("customerService", com.my.service.CustomerService.class);
+		customerService.login("id1", "p1");
 //		OrderLine line = ctx.getBean("line", com.my.vo.OrderLine.class);
 //		System.out.println(line);
 ////		

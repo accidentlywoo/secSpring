@@ -7,18 +7,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.my.exception.FindException;
-import com.my.sql.MyConnection;
 import com.my.vo.Postal;
 
+@Repository
 public class PostalDAO {
+	@Autowired
+	private DataSource ds;
 	public List<Postal> selectByDoro(String doro) throws FindException{
 		List<Postal> list = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			con = MyConnection.getConnection();
+			con = ds.getConnection();
 			
 			String selectByDoro = 
 					"SELECT \r\n" + 
@@ -45,7 +52,7 @@ public class PostalDAO {
 			}
 			if(list.size()==0)
 				throw new FindException("검색 결과가 없습니다.");
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return list;

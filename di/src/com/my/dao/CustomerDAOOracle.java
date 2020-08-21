@@ -7,24 +7,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.my.exception.AddException;
 import com.my.exception.DuplicatedException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;
 import com.my.exception.RemoveException;
-import com.my.sql.MyConnection;
 import com.my.vo.Customer;
 import com.my.vo.Postal;
 
+@Repository
 public class CustomerDAOOracle implements CustomerDAO{
-
+	@Autowired
+	private DataSource ds;
 	@Override
 	public void insert(Customer customer) throws AddException, DuplicatedException, FindException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			con = MyConnection.getConnection();
-		} catch (ClassNotFoundException | SQLException e) {
+			con = ds.getConnection();
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new AddException(e.getMessage());
 		}
@@ -47,8 +53,6 @@ public class CustomerDAOOracle implements CustomerDAO{
 				throw new DuplicatedException("이미 존재하는 ID입니다.");
 			}
 			throw new AddException(e.getMessage());
-		}finally {
-			MyConnection.close(pstmt, con);
 		}
 	}
 
@@ -64,8 +68,8 @@ public class CustomerDAOOracle implements CustomerDAO{
 		ResultSet rs = null;
 		
 		try {
-			con = MyConnection.getConnection();
-		}catch (ClassNotFoundException | SQLException e) {
+			con = ds.getConnection();
+		}catch (SQLException e) {
 			throw new FindException(e.getMessage());
 		}
 		
@@ -102,8 +106,6 @@ public class CustomerDAOOracle implements CustomerDAO{
 			throw new FindException("selectById : 찾을 수 없는 아이디 입니다.");
 		} catch (SQLException e) {
 			throw new FindException("selectById : "+e.getMessage());
-		}finally {
-			MyConnection.close(rs, pstmt, con);
 		}
 	}
 

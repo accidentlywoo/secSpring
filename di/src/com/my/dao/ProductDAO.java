@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Repository;
 import com.my.exception.AddException;
 import com.my.exception.DuplicatedException;
 import com.my.exception.FindException;
-import com.my.sql.MyConnection;
 import com.my.vo.Product;
 
 @Repository(value = "productDAO")
@@ -54,15 +52,10 @@ public class ProductDAO {
 				product.setProd_price(result.getInt("prod_price"));
 				return product;
 			}
+			throw new IllegalAccessError();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			if(connection != null) {
-				MyConnection.close(result, pstmt, connection);
-			}
+			throw new IllegalAccessError();
 		}
-		
-		return null;
 	}
 	public List<Product> selectByName(String word) throws FindException{return null;}
 	public List<Product> selectAll(int page) throws FindException{return null;}
@@ -73,10 +66,8 @@ public class ProductDAO {
 		ResultSet rs = null;
 		List<Product> list = new ArrayList<Product>();
 		try {
-			con = MyConnection.getConnection();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+			con = ds.getConnection();
+		}  catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
@@ -97,8 +88,6 @@ public class ProductDAO {
 			//return list; //return 筌욊낯�읈占쎈퓠 finally �뤃�됎� 占쎈땾占쎈뻬
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			MyConnection.close(rs, pstmt, con);
 		}
 		return list;
 	}

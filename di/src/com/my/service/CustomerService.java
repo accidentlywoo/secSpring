@@ -1,10 +1,9 @@
 package com.my.service;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
-import java.util.Properties;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.my.dao.CustomerDAO;
 import com.my.exception.AddException;
@@ -13,33 +12,11 @@ import com.my.exception.ModifyException;
 import com.my.exception.RemoveException;
 import com.my.vo.Customer;
 
+@Service
 public class CustomerService {
+	@Autowired
 	private CustomerDAO customerDAO;
-	public CustomerService(String path) {
-		Properties env = new Properties();
-		try {
-			
-			env.load(new FileInputStream(path));
-			String daoClassName = env.getProperty("dao");
-			// 런타임 다이나믹 로드해보기!
-			Class<?> clazz = Class.forName(daoClassName);
-			// 작업으로 로그한 클래스 타입으로 객체 생성
-			Object object = clazz.newInstance(); //public 매개변수 없는 생성자 호출
-			// 객체를 인스턴스 변수 dao에 대입
-			customerDAO = (CustomerDAO)object;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println(e.getMessage());
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		//-> properties 파일만 설정값이 변경되면 재 컴파일 없이, 변경 가능.
-	}
+	
 	public CustomerService(CustomerDAO customerDAO) {
 		this.customerDAO = customerDAO;
 	}
