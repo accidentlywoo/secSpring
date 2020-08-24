@@ -4,6 +4,9 @@ import static org.junit.Assume.assumeThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,9 +15,23 @@ import com.my.vo.Customer;
 import com.my.vo.Person;
 
 class JUnitTest {
-
+	private static Person p1, p2;
+	private static Customer c1, c2;
+	private int num;
+	@BeforeAll
+	static void beforAll() {
+		System.out.println("@BeforeAll : 모든 테스트메서드 이전에 1회 호출");
+		p1 = new Person("n1", "a1");
+		p2 = new Person();
+		
+		c1 = new Customer("id1", "p1");
+		c2 = new Customer("id2", "p2");
+	}
+	
 	@BeforeEach
-	void setUp() throws Exception {
+	void beforEach() throws Exception {
+		System.out.println("@BeforeEach : 각 테스트메서드 이전에 호출됨");
+		num = 10;
 	}
 
 	@Test
@@ -56,5 +73,15 @@ class JUnitTest {
 	void testAssume() {
 		int num = 10;
 		assumingThat(num % 2 == 0, () -> assertEquals(num, 10));
+	}
+	
+	@AfterEach
+	void afterEach() {
+		System.out.println("@AfterEach : 각 테스트메서드 이후에 호출됨");
+	}
+	
+	@AfterAll
+	static void afterAll() {
+		System.out.println("@AfterAll : 모든 테스트메서드 호출된 이후 1번 호출");
 	}
 }
