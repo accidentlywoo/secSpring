@@ -21,8 +21,8 @@
     	FROM PRODUCT 
   </select>
   <insert id="insert" parameterType="Product">
-  		INSERT 
-  		INTO PRODUCT
+  		INSERT INTO
+  		 PRODUCT
  					(prod_no, prod_name, prod_price)
   		 VALUES 
   		 			(#{prod_no},#{prod_name},#{prod_price})
