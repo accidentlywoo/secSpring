@@ -8,10 +8,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 public class Person implements Serializable{
@@ -23,10 +25,6 @@ public class Person implements Serializable{
 	protected String name;
 	@NonNull
 	private String addr;
-	public Person(String name, String addr) {
-		this.name = name;
-		this.addr = addr;
-	}
 	public void printInfo() {
 		System.out.println("Person [name=" + name + ", addr=" + addr + "]");
 	}
