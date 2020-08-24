@@ -22,7 +22,6 @@ public class Customer extends Person{
 		super(name, addr);
 		this.id = id;
 		this.pwd = pwd;
-		
 	}
 	
 	public String getId() {

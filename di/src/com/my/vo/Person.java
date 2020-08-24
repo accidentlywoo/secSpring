@@ -4,43 +4,31 @@ import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Person implements Serializable{
 	private static final long serialVersionUID = 1L;
 	//private String name;
 	@Autowired(required = false)
 	private Postal postal;// 도로명 우편번호 정보
+	@NonNull
 	protected String name;
+	@NonNull
 	private String addr;
-	
-	public Person() {}
 	public Person(String name, String addr) {
-		this(null, name, addr);
-	}
-	
-	public Person(Postal postal, String name, String addr) {
-		this.postal = postal;
 		this.name = name;
 		this.addr = addr;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getAddr() {
-		return addr;
-	}
-	public void setAddr(String addr) {
-		this.addr = addr;
-	}
-	public Postal getPostal() {
-		return postal;
-	}
-	public void setPostal(Postal postal) {
-		this.postal = postal;
 	}
 	public void printInfo() {
 		System.out.println("Person [name=" + name + ", addr=" + addr + "]");
 	}
+	
 }
