@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
+@RequiredArgsConstructor()
 @Getter
 @Setter
 public class Person implements Serializable{
@@ -25,8 +25,10 @@ public class Person implements Serializable{
 	protected String name;
 	@NonNull
 	private String addr;
+	public Person(@NonNull String name) {
+		this.name = name;
+	}
 	public void printInfo() {
 		System.out.println("Person [name=" + name + ", addr=" + addr + "]");
 	}
-	
 }
