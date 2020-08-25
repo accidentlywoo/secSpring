@@ -14,7 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.my.vo.Product;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = "classpath:configuration.xml")
+@ContextConfiguration(locations = "classpath:com/my/config/configuration.xml")
 class SQLTest {
 	@Autowired
 	SqlSessionFactory sessionFactory;

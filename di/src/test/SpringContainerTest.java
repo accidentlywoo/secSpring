@@ -25,7 +25,7 @@ import com.my.vo.Customer;
 import com.my.vo.Product;
 
 @ExtendWith(SpringExtension.class) // @RunWith(SpringJUnitClassRunner.class) : JUnit 4 version
-@ContextConfiguration(locations = "classpath:configuration.xml")
+@ContextConfiguration(locations = "classpath:com/my/config/configuration.xml")
 /*
  * @ContextConfiguration(locations = "file:C:\수업Spring\di\src\configuration.xml")
  * @ContextConfiguration(classes = com.my.cinfig.Configuration.class)

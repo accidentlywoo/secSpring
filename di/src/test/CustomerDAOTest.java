@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = "classpath:configuration.xml")
+@ContextConfiguration(locations = "classpath:com/my/config/configuration.xml")
 class CustomerDAOTest {
 
 	@Autowired

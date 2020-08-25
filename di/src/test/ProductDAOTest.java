@@ -16,7 +16,7 @@ import com.my.exception.FindException;
 import com.my.vo.Product;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = "classpath:configuration.xml")
+@ContextConfiguration(locations = "classpath:com/my/config/configuration.xml")
 class ProductDAOTest {
 
 	@Autowired
