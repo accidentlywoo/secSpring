@@ -17,7 +17,7 @@
     	 WHERE prod_no = #{prod_no}
   </select>
   <select id="selectAll"  parameterType="map" resultType="com.my.vo.Product">
-    	SELECT *
+      SELECT *
     	FROM PRODUCT 
   </select>
   <insert id="insert" parameterType="Product">

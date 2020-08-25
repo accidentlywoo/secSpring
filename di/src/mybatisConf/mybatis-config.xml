@@ -27,5 +27,6 @@
 		<!-- <mapper resource="CustomerMapper.xml"/> -->
 		<mapper resource="mybatisConf/ProductMapper.xml" />
 		<mapper resource="mybatisConf/OrderMapper.xml" />
+		<mapper resource="mybatisConf/CustomerMapper.xml" />
 	</mappers>
 </configuration>

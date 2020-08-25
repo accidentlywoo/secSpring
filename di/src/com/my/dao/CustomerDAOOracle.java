@@ -1,17 +1,13 @@
 package com.my.dao;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
-import javax.sql.DataSource;
-
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.my.exception.AddException;
@@ -20,125 +16,109 @@ import com.my.exception.FindException;
 import com.my.exception.ModifyException;
 import com.my.exception.RemoveException;
 import com.my.vo.Customer;
-import com.my.vo.Postal;
 
 @Repository
 @Qualifier(value = "customerDAOOracle")
 @Primary
 public class CustomerDAOOracle implements CustomerDAO{
 	@Autowired
-	@Qualifier(value = "myOracle")
-	private DataSource ds;
+	private SqlSessionFactory sessionFactory;
 	@Override
 	public void insert(Customer customer) throws AddException, DuplicatedException, FindException {
-		Connection con = null;
-		PreparedStatement pstmt = null;
+		SqlSession session = null;
 		try {
-			con = ds.getConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new AddException(e.getMessage());
-		}
-		
-		String insertSQL = 
-				"INSERT INTO customer(id, pwd, name, buildingno, addr) "
-				+ "VALUES (?,?,?,?,?)";
-		try {
-			pstmt = con.prepareStatement(insertSQL);
-			pstmt.setString(1, customer.getId());
-			pstmt.setString(2, customer.getPwd());
-			pstmt.setString(3, customer.getName());
-			pstmt.setString(4, customer.getPostal().getBuildingno());
-			pstmt.setString(5, customer.getAddr());
-			pstmt.executeUpdate(); //Java는 Auto Commit
-		} catch (SQLException e) {// SQLException 에만 있는 메소드가 있다.
-			e.printStackTrace();
-			if(e.getErrorCode() == 1) { // SQLException만 있는 getErrorCode()
-				// ErrorCode = 1 -> PK중복 에러
-				throw new DuplicatedException("이미 존재하는 ID입니다.");
-			}
-			throw new AddException(e.getMessage());
+			session = sessionFactory.openSession();
+			int result = session.insert("CustomerMapper.insert", customer);
+			if(result < 1) {
+				throw new FindException("고객 정보등록 실패");
+			} 
+		} catch (DataAccessException e) { // SQLSyntexError로 잡지 않는다.
+			throw new FindException(e.getMessage());
+		}finally {
+			session.close();
 		}
 	}
 
 	@Override
 	public List<Customer> selectAll() throws FindException {
-		return null;
+		SqlSession session = null;
+		try {
+			session = sessionFactory.openSession();
+			List<Customer> result = session.selectList("CustomerMapper.selectAll");
+			if(result.size() < 1) {
+				throw new FindException("고객 정보조회실패");
+			} 
+			return result;
+		} catch (DataAccessException e) { // SQLSyntexError로 잡지 않는다.
+			throw new FindException(e.getMessage());
+		}finally {
+			session.close();
+		}
 	}
 
 	@Override
 	public Customer selectById(String id) throws FindException {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
+		SqlSession session = null;
 		try {
-			con = ds.getConnection();
-		}catch (SQLException e) {
+			session = sessionFactory.openSession();
+			Customer result = session.selectOne("CustomerMapper.selectById", id);
+			if(result == null) {
+				throw new FindException("고객 정보조회실패");
+			} 
+			return result;
+		} catch (DataAccessException e) { // SQLSyntexError로 잡지 않는다.
 			throw new FindException(e.getMessage());
-		}
-		
-		String selectByIdSQL =
-				"SELECT \r\n" + 
-				"     c.id\r\n" + 
-				"    ,c.pwd\r\n" + 
-				"    ,c.name\r\n" + 
-				"    ,p.buildingno\r\n" + 
-				"    ,sido ||' '|| NVL(p.sigungu, ' ') || ' '|| NVL(p.eupmyun, ' ') city\r\n" + 
-				"    ,p.doro || ' ' || DECODE(building2, '0', building1, building1|| '-' ||building2) doro\r\n" + 
-				"    ,p.building\r\n"
-				+ ",p.zipcode " + 
-				"    ,c.addr\r\n" + 
-				"FROM customer c\r\n" + 
-				"LEFT OUTER JOIN postal p\r\n" + 
-				"    ON (c.buildingNo = p.buildingno)\r\n" + 
-				"WHERE 1=1\r\n" + 
-				"AND id =?";
-		try {
-			pstmt = con.prepareStatement(selectByIdSQL);
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			if(rs.next()) { // BOF 상태 Begin of File 
-				Customer customer = new Customer();
-				Postal postal = new Postal(rs.getString("zipcode"), rs.getString("buildingno"), rs.getString("city"), rs.getString("doro"),rs.getString("building"));
-				customer.setId(id);
-				customer.setPwd(rs.getString("pwd"));
-				customer.setName(rs.getString("name"));
-				customer.setPostal(postal);
-				customer.setAddr(rs.getString("city"));
-				return customer;
-			}
-			throw new FindException("selectById : 찾을 수 없는 아이디 입니다.");
-		} catch (SQLException e) {
-			throw new FindException("selectById : "+e.getMessage());
+		}finally {
+			session.close();
 		}
 	}
 
 	@Override
 	public List<Customer> selectByName(String word) throws FindException {
-		return null;
+		SqlSession session = null;
+		try {
+			session = sessionFactory.openSession();
+			List<Customer> result = session.selectList("CustomerMapper.selectByName",word);
+			if(result.size() < 1) {
+				throw new FindException("고객 정보조회실패");
+			} 
+			return result;
+		} catch (DataAccessException e) { // SQLSyntexError로 잡지 않는다.
+			throw new FindException(e.getMessage());
+		}finally {
+			session.close();
+		}
 	}
 
 	@Override
 	public void update(Customer customer) throws ModifyException, FindException {
-		
+		SqlSession session = null;
+		try {
+			session = sessionFactory.openSession();
+			int result = session.update("CustomerMapper.update", customer);
+			if(result < 1) {
+				throw new FindException("고객 정보수정 실패");
+			} 
+		} catch (DataAccessException e) { // SQLSyntexError로 잡지 않는다.
+			throw new FindException(e.getMessage());
+		}finally {
+			session.close();
+		}
 	}
 
 	@Override
 	public void delete(String id) throws RemoveException, FindException {
-		
-	}
-	public static void main(String[] args) throws FindException, IOException {
-		CustomerDAOOracle control = null;
-		control = new CustomerDAOOracle();
-		System.out.println(control.selectById("id1").toString());
-		
-		Customer customer = new Customer("id2","pwd2","name2");
+		SqlSession session = null;
 		try {
-			control.insert(customer);
-		} catch (AddException | FindException e) {
-			e.printStackTrace();
+			session = sessionFactory.openSession();
+			int result = session.delete("CustomerMapper.delete", id);
+			if(result < 1) {
+				throw new FindException("고객 정보삭제 실패");
+			} 
+		} catch (DataAccessException e) { // SQLSyntexError로 잡지 않는다.
+			throw new FindException(e.getMessage());
+		}finally {
+			session.close();
 		}
 	}
-
 }
