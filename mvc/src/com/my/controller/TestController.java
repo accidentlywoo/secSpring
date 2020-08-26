@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -71,17 +72,33 @@ public class TestController {
 	}
 
 	/*
-	 * Controller의 메핑 메소드들은 리턴타입에 상관없이 ModelAndView객체가 생성되서 Dispatcher Servlet에
+	 * Controller의 메핑 메소드들은 리턴타입에(Model, Map, String, View,....) 상관없이 
+	 * ModelAndView객체가 생성되서 DispatcherServlet에
 	 * 반환된다.
 	 */
 	@PostMapping("/h.do")
-	public void h(@RequestBody String data) throws JsonMappingException, JsonProcessingException {
+	public void h(@RequestBody String data) {
 		System.out.println("f() 호출됨");
 		System.out.println("data : " + data);
 		ObjectMapper mapper = new ObjectMapper();
-		List<Product> list = mapper.readValue(data, new TypeReference<List<Product>>() {});
-		for(Product item : list) {
-			System.out.println("item : "+item);
+		List<Product> list;
+		try {
+			list = mapper.readValue(data, new TypeReference<List<Product>>() {});
+			for(Product item : list) 
+				System.out.println("item : "+item);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
 		}
+	}
+	
+	@GetMapping("i.do")
+	public ModelAndView i() {
+		ModelAndView mnv = new ModelAndView();
+		mnv.addObject("errorMsg", "test"); // Model 객체는 request 객체와 다르다.
+		// DispatcherServlet이 Model의 Attribute를 request의 Attribute에 세팅해준다.
+		mnv.setViewName("/fail.jsp"); // default : forword
+		return mnv;
 	}
 }
