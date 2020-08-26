@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CustomerMapper">
+  <insert id="insert" parameterType="Customer">
+  	INSERT INTO
+  	CUSTOMER
+  		(id, pwd, name)
+	VALUES
+		(#{id}, #{pwd},#{name})
+  </insert>
+  <select id="selectAll" parameterType="map" resultType="Customer">
+  	SELECT *
+      FROM CUSTOMER
+  </select>
+  <select id="selectById" parameterType="map" resultType="Customer">
+  	SELECT *
+  	  FROM CUSTOMER
+  	 WHERE id = #{id}
+  </select>
+  <select id="selectByName" parameterType="map" resultType="Customer">
+  	SELECT *
+      FROM CUSTOMER
+  	 WHERE name like #{name}
+  </select>
+  <update id="update" parameterType="Customer">
+  	UPDATE CUSTOMER
+       SET name = #{name}
+     WHERE id = #{id}
+  </update>
+  <delete id="delete" parameterType="Customer">
+  	DELETE CUSTOMER
+  	 WHERE id = #{id}
+  </delete>
+</mapper>
