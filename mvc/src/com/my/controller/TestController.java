@@ -1,6 +1,12 @@
 package com.my.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -120,5 +126,22 @@ public class TestController {
 	@ResponseBody // ViewResolver로 가는 경로 차단. @RestController는 전체 Mapping메소드에서 ViewResolver 차단.
 	public Product n() {
 		return new Product("C0001", "아메리카노", 1000);
+	}
+	
+	@GetMapping("/m.do")
+	@ResponseBody
+	public String m() {
+		return "{\"id\":\"id1\"}";
+	}
+	@GetMapping("/o.do")
+	public void o(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	}
+	
+	@GetMapping("p.do")
+	public Map<String, Object> p(Product product) {
+		Map<String, Object> attrs = new HashMap<String, Object>();
+		attrs.put("product", product);
+		attrs.put("test", "hello");
+		return attrs; // p.jsp로 Resolve될 것
 	}
 }
