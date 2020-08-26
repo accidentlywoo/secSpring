@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.my.vo.Product;
 
 @Controller
+//@RestController
 public class TestController {
 	TestController() {
 		System.out.println("TestController 객체 생성");
@@ -94,7 +96,7 @@ public class TestController {
 		}
 	}
 	
-	@GetMapping("i.do")
+	@GetMapping("/i.do")
 	public ModelAndView i() {
 		ModelAndView mnv = new ModelAndView();
 		mnv.addObject("errorMsg", "test"); // Model 객체는 request 객체와 다르다.
@@ -104,17 +106,17 @@ public class TestController {
 		return mnv;
 	}
 	
-	@GetMapping("j.do")
+	@GetMapping("/j.do")
 	public String j() {
 		return "/fail";
 	}
-	@GetMapping("l-resolver.do")
+	@GetMapping("/l-resolver.do")
 	public void l() {
 		// return Type이 void일 경우 ViewResolver가  url(여기에서 'l-resolver')기반으로 결정된 뷰를 보여준다.
 	}
 	
 	//Json 객체로 return 하기
-	@GetMapping("n.do")
+	@GetMapping("/n.do")
 	@ResponseBody
 	public Product n() {
 		return new Product("C0001", "아메리카노", 1000);
