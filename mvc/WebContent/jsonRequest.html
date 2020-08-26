@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+	alert("script start");
+	$.ajax({
+		url : "h.do",
+		method : "post",
+	 	data: '[{"prod_no":"C0001", "prod_name":"아메리카노", "prod_price":1000}, {"prod_no":"C0002", "prod_name":"아아", "prod_price":1200}]'
+		,
+	 	//data : '["c1", "c2", "c3"]',
+		contentType : 'application/json; charset=utf-8',
+		success : function(data) {
+			alert(data);
+		}
+	});
+</script>
+</head>
+<body>
+
+</body>
+</html>
