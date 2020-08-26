@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -110,5 +111,12 @@ public class TestController {
 	@GetMapping("l-resolver.do")
 	public void l() {
 		// return Type이 void일 경우 ViewResolver가  url(여기에서 'l-resolver')기반으로 결정된 뷰를 보여준다.
+	}
+	
+	//Json 객체로 return 하기
+	@GetMapping("n.do")
+	@ResponseBody
+	public Product n() {
+		return new Product("C0001", "아메리카노", 1000);
 	}
 }
