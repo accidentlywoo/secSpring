@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -138,9 +139,9 @@ public class TestController {
 	}
 	
 	@GetMapping("p.do")
-	public Map<String, Object> p(Product product) {
+	public Map<String, Object> p(@ModelAttribute(name = "product")Product product) {
 		Map<String, Object> attrs = new HashMap<String, Object>();
-		attrs.put("product", product);
+//		attrs.put("product", product);
 		attrs.put("test", "hello");
 		return attrs; // p.jsp로 Resolve될 것
 	}
