@@ -117,7 +117,7 @@ public class TestController {
 	
 	//Json 객체로 return 하기
 	@GetMapping("/n.do")
-	@ResponseBody
+	@ResponseBody // ViewResolver로 가는 경로 차단. @RestController는 전체 Mapping메소드에서 ViewResolver 차단.
 	public Product n() {
 		return new Product("C0001", "아메리카노", 1000);
 	}
