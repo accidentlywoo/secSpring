@@ -98,7 +98,17 @@ public class TestController {
 		ModelAndView mnv = new ModelAndView();
 		mnv.addObject("errorMsg", "test"); // Model 객체는 request 객체와 다르다.
 		// DispatcherServlet이 Model의 Attribute를 request의 Attribute에 세팅해준다.
-		mnv.setViewName("/fail.jsp"); // default : forword
+		mnv.setViewName("/fail"); // default : forword
+		// mnv.setViewName("redirect:/fail.jsp"); redirect 설정하는 방법
 		return mnv;
+	}
+	
+	@GetMapping("j.do")
+	public String j() {
+		return "/fail";
+	}
+	@GetMapping("l-resolver.do")
+	public void l() {
+		// return Type이 void일 경우 ViewResolver가  url(여기에서 'l-resolver')기반으로 결정된 뷰를 보여준다.
 	}
 }
