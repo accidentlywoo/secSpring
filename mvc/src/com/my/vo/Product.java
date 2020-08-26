@@ -1,12 +1,5 @@
 package com.my.vo;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-@Component(value = "product")
 public class Product {
 	private String prod_no;
 	private String prod_name;
@@ -50,16 +43,6 @@ public class Product {
 		this.prod_price = prod_price;
 	}
 	
-	@PostConstruct //javax.~ 자바 어노테이션 JDK 1.9~ Deprecated
-	public void postConstructTest() {
-		System.out.println("객체 생성 후 postConstructTest() 호출");
-	}
-	
-	@PreDestroy //javax.~ 자바 어노테이션 
-	public void preDestroyTest() {
-		System.out.println("객체 소멸전 preDestroyTest() 호출");
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
