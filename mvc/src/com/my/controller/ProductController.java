@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,7 +16,7 @@ import com.my.service.ProductService;
 import com.my.vo.Product;
 
 @Controller
-public class ProductListController {
+public class ProductController {
 	@Autowired
 	private ProductService productSerive;
 	
@@ -32,5 +33,15 @@ public class ProductListController {
 			mnv.setViewName("/fail");
 		}
 		return mnv;
+	}
+	
+	@GetMapping(value = "/productDetail")
+	@ResponseBody
+	public Product productDetail(@RequestParam(name="prod_no") String no) {
+		try {
+			return productSerive.findByNo(no);
+		} catch (FindException e) {
+			return new Product("", "", 0);
+		}
 	}
 }

@@ -168,6 +168,7 @@
                     url: '/mvc/productDetail'
                     , data: { 'prod_no': prodId }
                     , success: data => {
+
                         let responseObj = JSON.parse(data);
                         prodDetail += '<form class="productDetail">';
                         prodDetail = prodDetail + '<input type="text" value=' + responseObj['prod_no'] + ' name="prod_no"  readonly>';
@@ -183,6 +184,25 @@
                 return false;
             });
             // -- 상품별 click end --
+             // -- 장바구니 담기 --
+             $("section").on('click', '.productDetail button[type=submit]', e => {
+                var targetObj = e.currentTarget.parentElement;
+                var formDataSerialize = $(targetObj).serialize();
+                $.ajax({
+                    url: '/mvc/putCart'
+                    , method: 'POST'
+                    , data: formDataSerialize
+                    , success: data => {
+                        if (data.status == 'success') {
+                            alert('장바구니 넣기 성공');
+                            window.location.reload;
+                        } else {
+                            alert('장바구니 넣기 실패');
+                        }
+                    }
+                });
+                return false;
+            });
             // -- 장바구니 리스트 --
             $("nav li > a.cartList").click(e => {
                 let $section = $("div.divContent>section");
@@ -221,26 +241,6 @@
                     }
                 });
                 $section.html("");
-                return false;
-            });
-
-            // -- 장바구니 담기 --
-            $("section").on('click', '.productDetail button[type=submit]', e => {
-                var targetObj = e.currentTarget.parentElement;
-                var formDataSerialize = $(targetObj).serialize();
-                $.ajax({
-                    url: '/mvc/putCart'
-                    , method: 'POST'
-                    , data: formDataSerialize
-                    , success: data => {
-                        if (data.status == 'success') {
-                            alert('장바구니 넣기 성공');
-                            window.location.reload;
-                        } else {
-                            alert('장바구니 넣기 실패');
-                        }
-                    }
-                });
                 return false;
             });
 
