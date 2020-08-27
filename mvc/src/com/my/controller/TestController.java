@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,6 +24,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.my.dao.CustomerDAO;
+import com.my.exception.FindException;
+import com.my.vo.Customer;
 import com.my.vo.Product;
 
 @Controller
@@ -144,5 +148,19 @@ public class TestController {
 //		attrs.put("product", product);
 		attrs.put("test", "hello");
 		return attrs; // p.jsp로 Resolve될 것
+	}
+	
+	@Autowired
+	private CustomerDAO customerDAO;
+	
+	@GetMapping("q.do")
+	@ResponseBody
+	public String q() {
+		try {
+			Customer customer = customerDAO.selectById("id1");
+			return "아이디 : " + customer.getId();
+		} catch (FindException e) {
+			return e.getMessage();
+		}
 	}
 }
