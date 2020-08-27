@@ -33,7 +33,7 @@
             $loginMenu.click(() => {
                 let oldSection = $section.html();
                 $.ajax({
-                    url: '/mvc/login.html'
+                    url: '/mvc/jq/login.html'
                     , success: data => {
                         oldSection += data;
                         $section.html(oldSection);
