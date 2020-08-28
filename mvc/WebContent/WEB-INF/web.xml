@@ -5,12 +5,15 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>mvc</display-name>
 	<welcome-file-list>
-		<!-- <welcome-file>index.html</welcome-file> <welcome-file>index.htm</welcome-file> -->
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>/WEB-INF/index.jsp</welcome-file>
 	</welcome-file-list>
+	<!-- <listener> <listener-class> org.springframework.web.context.ContextLoaderListener 
+		</listener-class> </listener> -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/root-context.xml
+		</param-value>
+	</context-param>
 	<servlet>
 		<servlet-name>mvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -31,11 +34,4 @@
 		<url-pattern>*.jsp</url-pattern>
 		<url-pattern>*.jspx</url-pattern>
 	</servlet-mapping>
-	<!-- <listener> <listener-class> org.springframework.web.context.ContextLoaderListener 
-		</listener-class> </listener> -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/root-context.xml
-		</param-value>
-	</context-param>
 </web-app>
