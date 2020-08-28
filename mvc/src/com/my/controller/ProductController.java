@@ -27,10 +27,10 @@ public class ProductController {
 		try {
 			list = productSerive.findAll();
 			mnv.addObject("list", list);
-			mnv.setViewName("/jsp/productList");
+			mnv.setViewName("productList");
 		} catch (FindException e) {
 			mnv.addObject("errorMsg", e.getMessage());
-			mnv.setViewName("/fail");
+			mnv.setViewName("fail");
 		}
 		return mnv;
 	}

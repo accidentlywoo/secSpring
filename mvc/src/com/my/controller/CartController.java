@@ -33,7 +33,7 @@ public class CartController {
 		Map<String, Integer> cart = new HashMap<String, Integer>();
 		cart.put(no, qnt);
 		session.setAttribute("cart", cart);
-		mnv.setViewName("/success");
+		mnv.setViewName("success");
 		return mnv;
 	}
 	
@@ -43,7 +43,7 @@ public class CartController {
 		Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
 		if(cart.size() < 1) {
 			mnv.addObject("errorMsg", "장바구니가 비었습니다.");
-			mnv.setViewName("/fail");
+			mnv.setViewName("fail");
 			return mnv;
 		}
 		Map<Product, Integer> cartDetail = new HashMap<Product, Integer>();
@@ -55,7 +55,7 @@ public class CartController {
 			}
 		}
 		mnv.addObject("cartDetail", cartDetail);
-		mnv.setViewName("/jsp/viewCart");
+		mnv.setViewName("viewCart");
 		return mnv;
 	}
 }

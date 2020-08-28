@@ -29,10 +29,10 @@ public class UserController {
 		ModelAndView mnv = new ModelAndView();
 		try {
 			customerService.login(id, pwd);
-			mnv.setViewName("/success");
+			mnv.setViewName("success");
 			session.setAttribute("loginInfo", id);
 		} catch (FindException e) {
-			mnv.setViewName("/fail");
+			mnv.setViewName("fail");
 		}
 		return mnv;
 	}
@@ -45,7 +45,7 @@ public class UserController {
 			return mnv;
 		}
 		session.removeAttribute("loginInfo");
-		mnv.setViewName("/success");
+		mnv.setViewName("success");
 		return mnv;
 	}
 	
@@ -54,9 +54,9 @@ public class UserController {
 		ModelAndView mnv = new ModelAndView();
 		try {
 			customerService.findById(id);
-			mnv.setViewName("/success");
+			mnv.setViewName("success");
 		} catch (FindException e) {
-			mnv.setViewName("/fail");
+			mnv.setViewName("fail");
 		}
 		return mnv;
 	}
@@ -68,9 +68,9 @@ public class UserController {
 		Customer customer = new Customer(id, pwd, name);
 		try {
 			customerService.add(customer);
-			mnv.setViewName("/success");
+			mnv.setViewName("success");
 		} catch (AddException | FindException e) {
-			mnv.setViewName("/fail");
+			mnv.setViewName("fail");
 		}
 		return mnv;
 	}
