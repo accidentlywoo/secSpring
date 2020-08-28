@@ -29,4 +29,8 @@
 	<mvc:resources location="/resources/html/" mapping="/jq/**"></mvc:resources>
 	<mvc:resources location="/resources/static/" mapping="/static/**"></mvc:resources>
 	<mvc:resources location="/resources/images/" mapping="/images/**"></mvc:resources>
+	
+	
+	<context:component-scan base-package="com.my.controller"></context:component-scan>
+
 </beans>
