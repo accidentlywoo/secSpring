@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 톰캣 구동시 바로 구동되는 설정 -> ContextLoaderListener -> Servlet Context Listener 
+		를 오버라이딩함. -->
+	<!-- 비즈니스로직용 스프링빈 설정 -->
+	<bean id="oracleDataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource"
+		primary="true">
+		<qualifier value="myOracle"></qualifier>
+		<property name="driverClass"
+			value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url"
+			value="jdbc:oracle:thin:@192.168.0.129:1521:xe"></property>
+		<property name="username" value="test"></property>
+		<property name="password" value="test"></property>
+	</bean>
+	<bean id="oracleDataSource2"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<qualifier value="tutorOracle"></qualifier>
+		<property name="driverClass"
+			value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url"
+			value="jdbc:oracle:thin:@192.168.0.129:1521:xe"></property>
+		<property name="username" value="test"></property>
+		<property name="password" value="test"></property>
+	</bean>
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName"
+			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<!-- <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/> -->
+		<property name="jdbcUrl"
+			value="jdbc:log4jdbc:oracle:thin:@192.168.0.129:1521:XE" />
+		<!-- <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@127.0.0.1:1521:XE"/> -->
+		<property name="username" value="test" />
+		<property name="password" value="test" />
+		<!-- <property name="minimumIdle" value="5" /> -->
+		<property name="maximumPoolSize" value="3" />
+		<!-- <property name="connectionTestQuery" value="select 1 from sys.dual" 
+			/> -->
+		<property name="connectionTimeout" value="10000" />
+	</bean>
+	<bean id="dataSource3" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<qualifier value="hikarids" />
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource3"></property>
+		<property name="configLocation"
+			value="classpath:mybatisConf/mybatis-config.xml">
+		</property>
+	</bean>
+	<context:component-scan base-package="com.my.vo"></context:component-scan>
+	<context:component-scan base-package="com.my.dao"></context:component-scan>
+	<context:component-scan base-package="com.my.service"></context:component-scan>
+</beans>
