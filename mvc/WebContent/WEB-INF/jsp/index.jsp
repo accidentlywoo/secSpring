@@ -70,7 +70,7 @@
                     }
 
                     $.ajax({
-                        url: 'login'
+                        url: '/login'
                         , method: 'POST'
                         , data: { id: idValue, pwd: pwdValue }
                         , success: function (data) {
@@ -99,7 +99,7 @@
             let $logoutMenu = $('nav > ul li .logout');
             $logoutMenu.click(() => {
                 $.ajax({
-                    url: 'logout'
+                    url: '/logout'
                     , success: data => {
                         if (data.status == 'success') {
                             alert('로그아웃 되었습니다.');
@@ -165,7 +165,7 @@
                     return false;
                 }
                 $.ajax({
-                    url: 'productDetail'
+                    url: '/productDetail'
                     , data: { 'prod_no': prodId }
                     , success: data => {
 
@@ -189,7 +189,7 @@
                 var targetObj = e.currentTarget.parentElement;
                 var formDataSerialize = $(targetObj).serialize();
                 $.ajax({
-                    url: 'putCart'
+                    url: '/putCart'
                     , method: 'POST'
                     , data: formDataSerialize
                     , success: data => {
@@ -207,7 +207,7 @@
             $("nav li > a.cartList").click(e => {
                 let $section = $("div.divContent>section");
                 $.ajax({
-                    url: 'viewCart'
+                    url: '/viewCart'
                     , success: data => {
                         if (data != "") {
                             let cartList = '<form class="cartList">';
@@ -256,7 +256,7 @@
             $("section").on('click', 'form.cartList button.order', () => {
                 let $checkedBox = $('form.cartList').serialize();
                 $.ajax({
-                    url: 'addOrder'
+                    url: '/addOrder'
                     , data: $checkedBox
                     , success: data => {
                         if (data.status == 'success') {
@@ -272,7 +272,7 @@
             // ------- 주문목록 ---------
             $("section nav li > a.cartList").click(() => {
                 $.ajax({
-                    url: 'orderList'
+                    url: '/orderList'
                     , success: data => {
 
                     }
