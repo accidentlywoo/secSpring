@@ -40,8 +40,9 @@ public class RestTestController {
 	
 	// http://localhost/mvc/v.do?no=1 (X)
 	// http://localhost/mvc/s.do/1 (0)
-	@GetMapping(value = "/v.do/{no}") 
-	public String e(@PathVariable(value = "no") int no) {
+	@GetMapping(value = "/v.do/{no}", produces = MediaType.TEXT_PLAIN_VALUE)  // null일때 404 에러 발생
+	public String e(@PathVariable(value = "no",
+					required = false) int no ) {// unBoxing 상태이다.
 		return "@PathVariacble : " + no;
 	}
 }
