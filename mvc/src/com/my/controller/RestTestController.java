@@ -2,6 +2,7 @@ package com.my.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,10 +43,10 @@ public class RestTestController {
 	// http://localhost/mvc/s.do/1 (0)
 	@GetMapping(value = {"/v.do/{no}", "/v.do"}, produces = MediaType.TEXT_PLAIN_VALUE)  // null일때 404 에러 발생
 	public String e(@PathVariable(value = "no",
-					required = false) Integer no ) {// unBoxing 상태이다.
+					required = false) Optional<Integer> no ) {// unBoxing 상태이다.
 		int num =1;
-		if(no != null) {
-			num = no;
+		if(no.isPresent()) {
+			num = no.get();
 		}
 		return "@PathVariacble : " + num;
 	}
