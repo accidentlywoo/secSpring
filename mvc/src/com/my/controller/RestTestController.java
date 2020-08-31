@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +49,9 @@ public class RestTestController {
 		return "@PathVariacble : " + no.orElse(0);
 	}
 	
+	@GetMapping(value = "/w.do")
 	public ResponseEntity<Product> f(){
 		Product product = new Product("C0001", "아메리카노", 1000);
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(product);
 	}
 }
