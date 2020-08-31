@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$.ajax({
+		url: '/mvc/r.do'
+		,mothod:'GET'
+		,success: data => {
+			console.log(data);
+			var jsonObj = JSON.parse(data);
+			console.log(jsonObj.msg);
+		}
+	});
+	$.ajax({
+		url: '/mvc/s.do'
+		,mothod:'GET'
+		,success: data => {
+			console.log(data);
+			console.log(data.msg);
+		}
+	});
+	$.ajax({
+		url: '/mvc/t.do'
+		,mothod:'GET'
+		,success: data => {
+			console.log(data);
+			console.log(data.msg);
+		}
+	});
+	
+	$.ajax({
+		url: '/mvc/u.do'
+		,mothod:'GET'
+		,success: data => {
+			console.log(data);
+			console.log(data.msg);
+		}
+	});
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>
