@@ -50,8 +50,13 @@ public class RestTestController {
 	}
 	
 	@GetMapping(value = "/w.do")
-	public ResponseEntity<Product> f(){
-		Product product = new Product("C0001", "아메리카노", 1000);
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(product);
+	public ResponseEntity<Product> f(int cnt){
+		if(cnt%2 == 0) {
+			Product product = new Product("C0001", "아메리카노", 1000);
+			return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(product);//502
+		}else {
+			Product product = new Product("C0001", "아메리카노", 1000);
+			return ResponseEntity.status(HttpStatus.OK).body(product);
+		}
 	}
 }

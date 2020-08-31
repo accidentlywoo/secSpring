@@ -40,6 +40,22 @@
 		}
 	});
 	
+	$.ajax({
+		url: '/mvc/v.do/3'
+		,mothod:'GET'
+		,success: data => {
+			console.log(data);
+		}
+	});
+	$.ajax({
+		url: '/mvc/w.do'
+		,data:"cnt=2"
+		,mothod:'GET'
+		,success: data => {
+			console.log(data);
+		}
+	});
+	
 </script>
 </head>
 <body>
