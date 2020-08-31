@@ -13,7 +13,8 @@
 		<property name="suffix" value=".jsp"></property>
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 	</bean>
-	<mvc:annotation-driven>
+	<mvc:annotation-driven />
+	<!-- <mvc:annotation-driven>
 		<mvc:message-converters
 			register-defaults="false">
 			<bean
@@ -25,7 +26,7 @@
 				</property>
 			</bean>
 		</mvc:message-converters>
-	</mvc:annotation-driven>
+	</mvc:annotation-driven> -->
 	<mvc:resources location="/resources/html/" mapping="/jq/**"></mvc:resources>
 	<mvc:resources location="/resources/static/" mapping="/static/**"></mvc:resources>
 	<mvc:resources location="/resources/images/" mapping="/images/**"></mvc:resources>
