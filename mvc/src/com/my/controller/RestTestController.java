@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,10 +45,10 @@ public class RestTestController {
 	@GetMapping(value = {"/v.do/{no}", "/v.do"}, produces = MediaType.TEXT_PLAIN_VALUE)  // null일때 404 에러 발생
 	public String e(@PathVariable(value = "no",
 					required = false) Optional<Integer> no ) {// unBoxing 상태이다.
-		int num =1;
-		if(no.isPresent()) {
-			num = no.get();
-		}
-		return "@PathVariacble : " + num;
+		return "@PathVariacble : " + no.orElse(0);
+	}
+	
+	public ResponseEntity<Product> f(){
+		Product product = new Product("C0001", "아메리카노", 1000);
 	}
 }
