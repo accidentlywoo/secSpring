@@ -25,6 +25,7 @@
 	</environments>
 	<mappers>
 		<!-- <mapper resource="CustomerMapper.xml"/> -->
+		<mapper resource="mybatisConf/AccountMapper.xml" />
 		<mapper resource="mybatisConf/BoardMapper.xml" />
 		<mapper resource="mybatisConf/ProductMapper.xml" />
 		<mapper resource="mybatisConf/OrderMapper.xml" />
