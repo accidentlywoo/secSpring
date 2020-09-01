@@ -17,7 +17,7 @@ public class AccountController {
 	
 	@GetMapping(value = "/account/add")
 	@ResponseBody
-	public String add(String no, int balance) {
+	public String add(String no, int balance) throws Exception {
 		//service.add() -> dao.insert()
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("account_no", "105");

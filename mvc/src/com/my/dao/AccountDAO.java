@@ -14,15 +14,15 @@ public class AccountDAO {
 	@Autowired
 	SqlSessionFactory sessionFactory;
 	
-	//@Transactional(propagation = Propagation.REQUIRED) // default
-	@Transactional
-	public int insert(Map<String, Object> param) {
+//	@Transactional(propagation = Propagation.MANDATORY)
+	@Transactional(rollbackFor = Exception.class)//Propagation.REQUIRED 기본 세팅
+	public int insert(Map<String, Object> param) throws Exception {
 		SqlSession session = null;
 		try {
 			session = sessionFactory.openSession();
 			session.selectOne("AccountMapper.insert", param);
-			throw new RuntimeException("rollback");
-		}catch (Exception e) {
+			throw new Exception("Checked Exception은 컴파일 시점에 체크되고, 기본은 롤백되지 않는다.");
+		}catch (RuntimeException e) {
 			throw new RuntimeException("rollback");
 		}finally {
 			session.close();
