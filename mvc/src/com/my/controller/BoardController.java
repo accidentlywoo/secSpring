@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.my.exception.FindException;
 import com.my.model.PageBean;
-import com.my.service.BoarderService;
+import com.my.service.BoardService;
 import com.my.vo.Board;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardController {
 
-	private final BoarderService boarderService;
+	private final BoardService boardService;
 
 	@GetMapping(value = "/boardRest")
 	public String root() {
@@ -34,7 +33,7 @@ public class BoardController {
 	@ResponseBody
 	public ResponseEntity<PageBean> list(@PathVariable(value = "currentPage", required = false) Optional<Integer> cp) {
 		try {
-			return ResponseEntity.status(HttpStatus.OK).body(boarderService.findAll(cp.orElse(1)));
+			return ResponseEntity.status(HttpStatus.OK).body(boardService.findAll(cp.orElse(1)));
 		} catch (FindException e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
@@ -43,7 +42,7 @@ public class BoardController {
 	@GetMapping(value = "/detail/{board_no}")
 	public Board detail(@PathVariable(value = "board_no") Integer no) {
 		try {
-			return boarderService.findByNo(no).orElse(new Board());
+			return boardService.findByNo(no).orElse(new Board());
 		} catch (FindException e) {
 			return new Board();//Exception?
 		}

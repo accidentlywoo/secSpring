@@ -3,6 +3,7 @@ package com.my.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.my.dao.BoardDAO;
@@ -12,12 +13,10 @@ import com.my.model.PageBean;
 import com.my.vo.Board;
 
 @Service
-public class BoarderService {
+public class BoardService {
+	@Autowired
 	private BoardDAO boardDAO;
 	
-	public BoarderService() {
-		boardDAO = new BoardDAO();
-	}
 	public void write(Board board) throws AddException {
 		if(board.getParent_no() != 0) {
 			throw new AddException("부모 글번호가 필요없습니다.");
@@ -46,8 +45,6 @@ public class BoarderService {
 		}
 		 // 총페이지 수
 		pageBean.setTotalPage(totalPage);
-		
-		// ~
 		pageBean.setStartPage(page);
 		pageBean.setEndPage(totalPage);
 		

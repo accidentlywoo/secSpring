@@ -3,8 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="BoardMapper">
-	<select id="selectAll" resultType="Board">
-		SELECT * FROM BOARD
+	<select id="selectAll" parameterType="map" resultType="Board">
+		SELECT *
+		FROM(SELECT ROWNUM list, b.*
+			FROM (SELECT level, a.*
+				FROM (SELECT *
+					FROM board
+					ORDER BY board_no DESC) a
+			START WITH parent_no = 0
+			CONNECT BY PRIOR board_no = parent_no
+			ORDER SIBLINGS BY a.board_no DESC)b
+		)
+		WHERE list BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="selectCount" resultType="int">
 		SELECT count(*) FROM BOARD

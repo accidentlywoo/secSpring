@@ -12,7 +12,7 @@ public class PageBean {
 	private int startRow; // 페이지당 보여줄 시작행 
 	private int endRow; // 페이지당 보여줄 끝행
 	private int totalPage; // 총 페이지
-	private List< Board> list; // 
+	private List<Board> list; // 
 	private int startPage; //페이지 그룹의 시작 페이지
 	private int endPage; //페이지 그룹의 끝 페이지
 	public PageBean() {}// 자바빈 규칙 1. 기본 생성자

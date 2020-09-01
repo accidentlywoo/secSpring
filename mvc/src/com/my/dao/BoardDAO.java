@@ -1,15 +1,9 @@
 package com.my.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-
-import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -20,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.vo.Board;
-import com.my.vo.Customer;
 
 @Repository
 public class BoardDAO {
@@ -34,9 +27,12 @@ public class BoardDAO {
 		SqlSession session = null;
 		try {
 			session = sessionFactory.openSession();
-			List<Board> result = session.selectList("BoardMapper.selectAll");
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("startRow", startRow);
+			map.put("endRow", endRow);
+			List<Board> result = session.selectList("BoardMapper.selectAll", map);
 			if(result.size() < 1) {
-				throw new FindException("고객 정보조회실패");
+				throw new FindException("게시물 없음.");
 			} 
 			return result;
 		} catch (DataAccessException e) { // SQLSyntexError로 잡지 않는다.

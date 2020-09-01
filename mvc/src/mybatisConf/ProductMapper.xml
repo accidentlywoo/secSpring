@@ -9,7 +9,7 @@
     	 WHERE prod_no = #{prod_no}
   </select>
   <!-- result type -->
-  <select id="selectByNoMap"  parameterType="map" resultType="map">
+  <select id="selectByNoMap" resultType="map">
     	 SELECT 
    			   PROD_NO no
   		     , PROD_NAME name
