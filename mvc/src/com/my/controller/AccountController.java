@@ -21,7 +21,7 @@ public class AccountController {
 		//service.add() -> dao.insert()
 		SqlSession session = sqlseeionFactory.openSession();
 		Map<String, Object> parameter = new HashMap<String, Object>();
-		parameter.put("account_no", "101");
+		parameter.put("account_no", "102");
 		parameter.put("account_balance", 1000);
 		
 		session.insert("AccountMapper.insert", parameter);
