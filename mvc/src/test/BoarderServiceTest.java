@@ -13,6 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.my.dao.BoardDAO;
 import com.my.exception.FindException;
+import com.my.model.PageBean;
 import com.my.service.BoardService;
 
 @ExtendWith(SpringExtension.class)
@@ -54,7 +55,7 @@ public class BoarderServiceTest {
 			 //given
 
 	        //현재페이지 요청이 0이 와도 1로 세팅
-				assertTrue(boardservice.findAll(1).getList().size() == 3);
+				assertTrue(boardservice.findAll(1).getList().size() == PageBean.CNT_PER_PAGE);
 	        //then
 			
 		} catch (FindException e) {
