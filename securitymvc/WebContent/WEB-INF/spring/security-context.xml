@@ -6,11 +6,21 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 		
 	<security:http>
+		<!-- 로그인 하지 않은 사용자 전체 점근 가능 -->
 		<security:intercept-url pattern="/sample/all" access="permitAll"/>
+		<!-- 로그인 한 사용자만 접근할 수 있는 URI -->
 		<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')"/>
+		<!-- 로그인 한 사용자 중 관리자 권한을 가진 사용자만 접근할 수 있는 URI -->
+		<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>
+		
 		<security:form-login/>
 	</security:http>
 	<security:authentication-manager>
-	
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="member" password="{noop}password" authorities="ROLE_MEMBER"/>
+				<security:user name="admin" password="{noop}password" authorities="ROLE_MEMBER, ROLE_ADMIN"/>
+			</security:user-service>
+		</security:authentication-provider>
 	</security:authentication-manager>
 </beans>
