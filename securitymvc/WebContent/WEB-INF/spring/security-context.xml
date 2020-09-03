@@ -20,7 +20,7 @@
 		
 		<security:access-denied-handler error-page="/accessError"/>
 		
-		<security:logout/>
+		<security:logout logout-url="/customLogout" invalidate-session="true"/>
 		
 	</security:http>
 	<security:authentication-manager>
