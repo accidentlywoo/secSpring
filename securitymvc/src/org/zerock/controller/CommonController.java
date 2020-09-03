@@ -43,8 +43,8 @@ public class CommonController {
 
 	@PostMapping("/customLogout")
 	public void logoutPost() {
-
-		log.info("post custom logout");
+		// Spring Security의 Logout Controller에의해 Interceptor되서 동작이 위임 된다./login 
+		log.info("post custom logout");//찍히지 않음
 	}
 
 }
