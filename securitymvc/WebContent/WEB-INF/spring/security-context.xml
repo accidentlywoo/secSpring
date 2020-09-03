@@ -13,7 +13,8 @@
 		<!-- 로그인 한 사용자 중 관리자 권한을 가진 사용자만 접근할 수 있는 URI -->
 		<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>
 		
-		<security:form-login/>
+		<!-- <security:form-login/> -->
+		<security:form-login login-page="/customLogin"/>
 		
 		<security:access-denied-handler error-page="/accessError"/>
 	</security:http>
