@@ -10,7 +10,8 @@
   
 <h1> Logout Page</h1>
 
-<form action="/customLogout" method='post'>
+<!-- <form action="/customLogout" method='post'> -->
+<form action="/logout" method='post'> <!-- Spring Security에서 제공하는 내장 Controller -->
 <input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
 <button>로그아웃</button>
 </form>

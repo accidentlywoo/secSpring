@@ -21,7 +21,7 @@
 
 
 <a href="/customLogout">Logout</a> --%>
-
+<a href="/customLogout">Logout</a><!-- href, url직접 입력은 GET방식으로 요청된다 -->
 
 </body>
 </html>

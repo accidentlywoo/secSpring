@@ -5,6 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 		
+	<bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>
 	<security:http>
 		<!-- 로그인 하지 않은 사용자 전체 점근 가능 -->
 		<security:intercept-url pattern="/sample/all" access="permitAll"/>
@@ -14,9 +15,13 @@
 		<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>
 		
 		<!-- <security:form-login/> -->
-		<security:form-login login-page="/customLogin"/>
+		<security:form-login login-page="/customLogin"
+		authentication-success-handler-ref="customLoginSuccess"/>
 		
 		<security:access-denied-handler error-page="/accessError"/>
+		
+		<security:logout/>
+		
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>
